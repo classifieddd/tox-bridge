@@ -3,274 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tox Bridge — Documentation</title>
+  <title>Tox Bridge</title>
   <style>
-    :root {
-      --bg: #0d1117;
-      --card: #161b22;
-      --border: #30363d;
-      --text: #e6edf3;
-      --text2: #8b949e;
-      --accent: #58a6ff;
-      --green: #3fb950;
-      --red: #f85149;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 650px;
+      margin: 60px auto;
+      padding: 0 20px;
+      background: #fafafa;
+      color: #222;
+      line-height: 1.6;
       font-size: 15px;
     }
-    .container { max-width: 800px; margin: 0 auto; padding: 40px 24px 80px; }
-    h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.5px; }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .sub {
+      color: #666;
+      margin-bottom: 40px;
+    }
     h2 {
-      font-size: 20px; font-weight: 600; margin: 48px 0 12px;
-      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 36px;
+      margin-bottom: 8px;
     }
-    h3 { font-size: 16px; font-weight: 600; margin: 28px 0 8px; }
-    p { margin: 0 0 16px; color: var(--text2); }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    p {
+      margin: 0 0 14px 0;
+    }
+    a {
+      color: #0055ff;
+    }
     code {
-      background: #1c2128; padding: 2px 6px; border-radius: 4px;
-      font-family: ui-monospace, monospace; font-size: 13px; color: #f0c674;
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 14px;
     }
-    pre {
-      background: #1c2128; padding: 14px 16px; border-radius: 6px;
-      overflow-x: auto; border: 1px solid var(--border);
-      font-size: 13px; line-height: 1.5; margin: 12px 0 20px;
+    ul {
+      padding-left: 20px;
+      margin: 10px 0 20px 0;
     }
-    pre code { background: none; padding: 0; }
-    ul, ol { margin: 0 0 16px 24px; color: var(--text2); }
-    li { margin-bottom: 6px; }
-    .sub { color: var(--text2); font-size: 16px; margin-bottom: 32px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 22px; border-radius: 6px; font-weight: 500;
-      text-decoration: none; font-size: 15px; margin: 8px 8px 8px 0;
+    li {
+      margin-bottom: 6px;
     }
-    .btn-primary { background: #238636; color: #fff; }
-    .btn-primary:hover { background: #2ea043; text-decoration: none; }
-    .btn-secondary { background: #21262d; color: var(--text); border: 1px solid var(--border); }
-    .btn-secondary:hover { background: #30363d; text-decoration: none; }
-    .cmd-grid {
-      display: grid; grid-template-columns: 1fr 2fr;
-      gap: 2px; margin: 12px 0 20px;
+    .bot-link {
+      display: inline-block;
+      margin: 16px 0;
+      padding: 10px 20px;
+      background: #222;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 15px;
     }
-    .cmd-grid > div {
-      padding: 8px 12px; background: #1c2128;
-      font-size: 13px; border-bottom: 1px solid var(--border);
+    .bot-link:hover {
+      background: #000;
     }
-    .cmd-grid > .cmd { font-family: ui-monospace, monospace; color: #f0c674; }
-    .cmd-grid > .desc { color: var(--text2); }
-    .cmd-grid > .header { font-weight: 600; color: var(--text); background: #161b22; }
-    .tag {
-      display: inline-block; padding: 1px 8px; border-radius: 10px;
-      font-size: 11px; font-weight: 500; margin-left: 6px;
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 40px 0;
     }
-    .tag-admin { background: #f8514933; color: var(--red); }
-    .tag-all { background: #23863633; color: var(--green); }
-    hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
-    .footer { color: var(--text2); font-size: 13px; margin-top: 60px; text-align: center; }
-    @media (max-width: 600px) {
-      .container { padding: 20px 16px 60px; }
-      .cmd-grid { grid-template-columns: 1fr; }
+    .footer {
+      color: #999;
+      font-size: 13px;
+      margin-top: 60px;
     }
   </style>
 </head>
 <body>
-<div class="container">
 
 <h1>Tox Bridge</h1>
-<p class="sub">
-  Un bot Telegram qui parle le protocole Tox.<br>
-  Messages chiffr&eacute;s de bout en bout sans serveur central.
-</p>
+<p class="sub">Un bot Telegram pour parler sur le réseau Tox.<br>
+Pas de compte, pas de serveur, pas de logs.</p>
 
 <p>
-  <a class="btn btn-primary" href="https://t.me/pursiveBot" target="_blank">@pursiveBot</a>
-  <a class="btn btn-secondary" href="https://github.com/classifieddd/tox-bridge" target="_blank">Code source</a>
+  <a class="bot-link" href="https://t.me/pursiveBot" target="_blank">@pursiveBot</a>
 </p>
 
-<h2>Pr&eacute;sentation</h2>
+<h2>Le problème</h2>
 <p>
-  Tox est un r&eacute;seau <strong>pair-&agrave;-pair</strong> (P2P) sans serveur central.
-  Les messages vont directement d&rsquo;un appareil &agrave; l&rsquo;autre, chiffr&eacute;s de
-  bout en bout. Tox Bridge fait le lien entre Telegram et Tox&thinsp;: vous utilisez Telegram
-  (que vous avez d&eacute;j&agrave;), le bot incarne votre identit&eacute; Tox et transmet les
-  messages.
+  Tes messages passent par des serveurs. Même "chiffrés", les applis savent 
+  à qui tu parles, pendant combien de temps, depuis où. Les 
+  gouvernements peuvent demander ces infos aux entreprises. 
+  C'est comme si la poste ouvrait chaque enveloppe pour noter 
+  l'expéditeur et le destinataire avant de la refermer.
 </p>
 
-<h2>D&eacute;marrage rapide</h2>
+<h2>L'idée</h2>
+<p>
+  Tox est un réseau <strong>pair-à-pair</strong> (P2P). 
+  Il n'y a pas de serveur central. Quand tu envoies un message, 
+  il va directement de ton appareil à celui de ton interlocuteur, 
+  chiffré de bout en bout. Personne d'autre ne peut le lire, 
+  pas même le logiciel.
+</p>
+<p>
+  Le problème, c'est que Tox n'est pas pratique au quotidien. 
+  Il faut installer un client lourd, gérer les mises à jour, 
+  être devant son PC.
+</p>
+<p>
+  <strong>Tox Bridge fait le lien :</strong> tu utilises Telegram 
+  (que tu as déjà), le bot s'occupe de parler le protocole Tox 
+  pour toi. Tu dialogues sur le réseau P2P sans changer d'appli.
+</p>
+
+<h2>Comment ça marche</h2>
 <ol>
-  <li><code>/start</code>&thinsp;— le bot cr&eacute;e votre profil Tox</li>
-  <li><code>/myid</code>&thinsp;— r&eacute;cup&eacute;rez votre adresse &agrave; partager</li>
-  <li>Envoyez cette adresse &agrave; votre contact (Signal, SMS, &hellip;)</li>
-  <li>Votre contact fait <code>/add &lt;adresse&gt;</code> sur son bot</li>
-  <li>Vous recevez une notification&thinsp;&rarr;&thinsp;<code>/accept</code></li>
-  <li><code>/select &lt;num&eacute;ro&gt;</code> pour choisir un contact</li>
-  <li>&Eacute;crivez un message&thinsp;— le bot le transmet sur le r&eacute;seau Tox</li>
+  <li>Envoie <code>/start</code> au bot — il crée ton identité Tox</li>
+  <li><code>/myid</code> pour obtenir ton adresse (une clé publique)</li>
+  <li><code>/add</code> suivi de l'adresse d'un ami pour l'ajouter</li>
+  <li>Quand tu écris un message, le bot le chiffre et l'envoie 
+  sur le réseau Tox. Ton ami le reçoit directement, sans 
+  intermédiaire.</li>
 </ol>
 
-<h2>Commandes</h2>
-
-<h3>Pour tout le monde</h3>
-<div class="cmd-grid">
-  <div class="cmd header">Commande</div>
-  <div class="desc header">Description</div>
-
-  <div class="cmd">/start</div>
-  <div class="desc">Cr&eacute;e votre profil Tox et affiche l&rsquo;aide</div>
-
-  <div class="cmd">/myid</div>
-  <div class="desc">Affiche votre adresse Tox (76 hex) et votre cl&eacute; publique</div>
-
-  <div class="cmd">/add &lt;adresse&gt;</div>
-  <div class="desc">Ajoute un ami par son adresse (76 ou 64 hex)</div>
-
-  <div class="cmd">/friends</div>
-  <div class="desc">Liste vos amis avec leur statut (en ligne/hors ligne)</div>
-
-  <div class="cmd">/select &lt;num&eacute;ro&gt;</div>
-  <div class="desc">S&eacute;lectionne un contact pour discuter</div>
-
-  <div class="cmd">/setname &lt;pseudo&gt;</div>
-  <div class="desc">Change votre pseudo sur le r&eacute;seau Tox</div>
-
-  <div class="cmd">/requests</div>
-  <div class="desc">Affiche les demandes d&rsquo;ami en attente</div>
-
-  <div class="cmd">/accept &lt;pk&gt;</div>
-  <div class="desc">Accepte une demande d&rsquo;ami (collez le d&eacute;but de la cl&eacute;)</div>
-
-  <div class="cmd">/remove &lt;num&eacute;ro&gt;</div>
-  <div class="desc">Supprime un ami</div>
-</div>
-
-<h3>Admin (propri&eacute;taire uniquement)</h3>
-<div class="cmd-grid">
-  <div class="cmd header">Commande</div>
-  <div class="desc header">Description</div>
-
-  <div class="cmd">/status</div>
-  <div class="desc">R&eacute;sum&eacute;&thinsp;: nombre de profils, connect&eacute;s, amis</div>
-
-  <div class="cmd">/stats</div>
-  <div class="desc">Statistiques d&eacute;taill&eacute;es par utilisateur</div>
-
-  <div class="cmd">/broadcast &lt;msg&gt;</div>
-  <div class="desc">Envoie un message &agrave; tous les utilisateurs</div>
-
-  <div class="cmd">/restart</div>
-  <div class="desc">Red&eacute;marre le bot</div>
-</div>
-
-<h2>Comment &ccedil;a marche</h2>
-
-<h3>Architecture</h3>
-<p>Chaque utilisateur Telegram poss&egrave;de sa propre <strong>identit&eacute; Tox</strong>
-  (paire de cl&eacute;s). Elle est stock&eacute;e dans un fichier <code>.tox</code> sur le serveur.
-  Les messages transitsur le r&eacute;seau Tox normal&thinsp;— ils sont chiffr&eacute;s de bout en
-  bout par la biblioth&egrave;que <strong>libtoxcore</strong>. Le bot ne fait que relayer le texte
-  entre Telegram et Tox.</p>
-
-<h3>R&eacute;seau</h3>
-<p>Le bot utilise les n&oelig;uds d&rsquo;amor&ccedil;age publics de Tox (DHT) pour rejoindre le
-  r&eacute;seau. Une fois connect&eacute;, chaque identit&eacute; est joignable via son adresse
-  (cl&eacute; publique + nospam). Le bot se connecte &eacute;galement &agrave; des relais TCP
-  (ports 443, 3389, 33445) pour garantir la connectivit&eacute; m&ecirc;me derri&egrave;re un
-  NAT ou un pare-feu restrictif.</p>
-
-<h2>S&eacute;curit&eacute; des donn&eacute;es</h2>
-
-<h3>Chiffrement de la base</h3>
-<p>La base de donn&eacute;es (<code>bot.db</code>) est chiffr&eacute;e au repos avec
-  <strong>Fernet</strong> (AES-128-CBC + HMAC-SHA256). La cl&eacute; est d&eacute;riv&eacute;e
-  via <strong>PBKDF2-SHA256</strong> (200 000 it&eacute;rations) avec un sel al&eacute;atoire de
-  16 octets pr&eacute;fix&eacute; au fichier. Sans la variable d&rsquo;environnement
-  <code>TOX_DB_KEY</code>, la base est illisible.</p>
-
-<h3>Profils Tox</h3>
-<p>Chaque profil (<code>profile_{id}.tox</code>) contient la cl&eacute; priv&eacute;e, la liste
-  d&rsquo;amis et les param&egrave;tres. &Eacute;criture atomique (fichier temporaire + renommage)
-  pour &eacute;viter toute corruption. Sauvegarde automatique toutes les 30 secondes et apr&egrave;s
-  chaque modification (ajout/suppression d&rsquo;ami, changement de nom).</p>
-
-<h3>Ce qui n&rsquo;est PAS sauvegard&eacute;</h3>
+<h2>Ce qui est sauvegardé</h2>
 <ul>
-  <li>Les messages &eacute;chang&eacute;s (ils transitent uniquement en m&eacute;moire)</li>
-  <li>Les logs de conversation</li>
-  <li>Les m&eacute;tadonn&eacute;es d&rsquo;utilisation</li>
+  <li>Ton identité Tox (ta clé privée pour rester joignable)</li>
+  <li>La liste de tes amis</li>
+  <li>Le contact sélectionné</li>
+  <li>Rien d'autre. <strong>Pas de messages, pas de logs, pas de tracking.</strong></li>
 </ul>
-
-<h2>Persistance</h2>
-<ul>
-  <li><strong>Identit&eacute; Tox</strong>&thinsp;: sauvegard&eacute;e dans le profil <code>.tox</code></li>
-  <li><strong>Liste d&rsquo;amis</strong>&thinsp;: incluse dans le profil (natif libtoxcore)</li>
-  <li><strong>Demandes d&rsquo;ami en attente</strong>&thinsp;: base chiffr&eacute;e</li>
-  <li><strong>Contact s&eacute;lectionn&eacute;</strong>&thinsp;: base chiffr&eacute;e</li>
-  <li><strong>Pseudo des amis</strong>&thinsp;: base chiffr&eacute;e</li>
-  <li><strong>Backup automatique</strong>&thinsp;: quotidien &agrave; 4h UTC, conservation 7 jours</li>
-</ul>
-
-<h2>D&eacute;ploiement</h2>
-
-<h3>Pr&eacute;-requis</h3>
-<ul>
-  <li>Ubuntu 24.04+ (ou Debian 12+)</li>
-  <li>Python 3.12+</li>
-  <li>libtoxcore 0.2.22 (<code>apt install libtoxcore-dev</code>)</li>
-  <li>Un token bot Telegram</li>
-  <li>Une variable d&rsquo;environnement <code>TOX_DB_KEY</code> (32+ caract&egrave;res)</li>
-</ul>
-
-<h3>Installation</h3>
-<pre><code>git clone https://github.com/classifieddd/tox-bridge.git
-cd tox-bridge
-python3 -m venv venv
-. venv/bin/activate
-pip install python-dotenv python-telegram-bot cryptography toxygen
-# &Eacute;diter .env :
-#   TELEGRAM_BOT_TOKEN=votre_token
-#   TOX_DB_KEY=votre_cle_maitresse
-python run.py</code></pre>
-
-<h3>Systemd (production)</h3>
-<pre><code>[Unit]
-Description=Tox-Telegram Bridge
-After=network.target
-
-[Service]
-User=ubuntu
-WorkingDirectory=/home/ubuntu/tox-bridge
-EnvironmentFile=/home/ubuntu/tox-bridge/.env
-ExecStart=/home/ubuntu/tox-bridge/venv/bin/python /home/ubuntu/tox-bridge/run.py
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target</code></pre>
-
-<h2>D&eacute;pendances</h2>
-<ul>
-  <li><strong>python-telegram-bot</strong>&thinsp;— interface Telegram</li>
-  <li><strong>cryptography</strong>&thinsp;— chiffrement Fernet de la base</li>
-  <li><strong>libtoxcore</strong>&thinsp;— pile protocolaire Tox (binaire syst&egrave;me)</li>
-  <li><strong>python-dotenv</strong>&thinsp;— chargement du fichier <code>.env</code></li>
-</ul>
-
-<h2>Licence</h2>
-<p>Projet personnel. Source ouvert &agrave; des fins de transparence
-  et d&rsquo;audit.</p>
 
 <hr>
 
 <div class="footer">
-  <p>Pas de pub. Pas de tracking. Pas de serveur central.</p>
+  <p>Pas de pub. Pas de base de données marketing. Pas de traceurs.<br>
+  Juste un bout de code pour causer tranquille.</p>
 </div>
 
-</div>
 </body>
 </html>
